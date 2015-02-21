@@ -1,0 +1,109 @@
+﻿@model Mvcimageupload.Table
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Upload", "user", FormMethod.Post, new { id="form1", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Table</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userid)
+            @Html.ValidationMessageFor(model => model.userid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.confirm_password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.confirm_password)
+            @Html.ValidationMessageFor(model => model.confirm_password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.fullname)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fullname)
+            @Html.ValidationMessageFor(model => model.fullname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.emailid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.emailid)
+            @Html.ValidationMessageFor(model => model.emailid)
+        </div>
+        <div>
+            <input type="file" id="file1" name="file1" /><br />
+            <p>
+                <input type="submit" id="form" value="submit">
+            </p>
+        </div>
+            @*<input type="submit" />*@
+            
+             @*  <input type="submit" id="Uploadbtn" value="Upload" />*@
+        <table class="table table-bordered table-striped table-hover">
+
+            @foreach (Mvcimageupload.Table u in ViewBag.UsersList)
+            {
+
+                <tr>
+                    <td>
+                        @Html.Label(u.userid.ToString())
+                    </td>
+                    <td>
+                        @Html.Label(u.username)
+                    </td>
+                    <td>
+                        @Html.Label(u.fullname)
+                    </td>
+                    <td>
+                        <b>@u.emailid</b>
+
+                    </td>
+
+                    <td>
+                        <img id="photo" width="50" height="50" src="/user/GetImage/@u.userid" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
